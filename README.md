@@ -4,7 +4,7 @@ Le das un término y DataMiner lo busca a la vez en **20 fuentes** (buscadores w
 
 ## Descargar (Windows)
 
-1. Ve a la página de [Releases](https://github.com/virtuanista/DataMiner/releases/latest) y descarga `DataMiner-2.0.0-windows.zip`.
+1. Ve a la página de [Releases](https://github.com/virtuanista/data-miner/releases/latest) y descarga `DataMiner-2.0.0-windows.zip`.
 2. Descomprímelo en cualquier carpeta y abre **`DataMiner.exe`**. No necesita Python.
 3. Tus búsquedas y descargas se guardan en `%USERPROFILE%\DataMiner\output\`.
 

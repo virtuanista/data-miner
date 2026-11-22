@@ -10,3 +10,6 @@ build/
 dist/
 *.spec.bak
 *.part
+# copia de la app instalada por error en la raíz
+/DataMiner.exe
+/_internal/
