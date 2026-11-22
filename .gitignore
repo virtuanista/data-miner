@@ -1,0 +1,12 @@
+# datos generados por el usuario
+output/
+*.log
+# entorno y caches
+.venv/
+__pycache__/
+*.pyc
+# salidas de empaquetado
+build/
+dist/
+*.spec.bak
+*.part

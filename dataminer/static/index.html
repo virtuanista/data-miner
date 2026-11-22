@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DataMiner</title>
+<link rel="icon" href="/static/mark.svg">
+<link rel="stylesheet" href="/static/app.css">
+<script>
+try{const t=localStorage.getItem('dm-theme');if(t&&t!=='system')document.documentElement.dataset.theme=t;
+  const d=localStorage.getItem('dm-density');if(d)document.documentElement.dataset.density=d}catch(e){}
+if(new URLSearchParams(location.search).get('shell')==='desktop')document.documentElement.dataset.shell='desktop';
+</script>
+</head>
+<body>
+<div class="shell">
+  <header class="titlebar">
+    <div class="brand pywebview-drag-region">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2 21 7v10l-9 5-9-5V7z" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linejoin="round"/><path d="M7 9.6l5 2.8 5-2.8M7 13.4l5 2.8 5-2.8" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      DataMiner <small id="ver">2.0</small>
+    </div>
+    <div class="drag pywebview-drag-region"></div>
+    <button class="omni" data-act="palette" aria-label="Abrir la paleta de comandos"><svg class="i"><use href="#i-search"/></svg><span>Buscar o ejecutar un comando…</span><kbd class="kbd">Ctrl K</kbd></button>
+    <div class="drag pywebview-drag-region"></div>
+    <button class="btn ghost icon" data-act="theme" title="Cambiar tema" aria-label="Cambiar tema"><svg class="i"><use href="#i-theme"/></svg></button>
+    <div class="winctl">
+      <button data-act="win-min" aria-label="Minimizar"><svg class="i" viewBox="0 0 12 12"><path d="M1 6h10"/></svg></button>
+      <button data-act="win-max" aria-label="Maximizar"><svg class="i" viewBox="0 0 12 12"><rect x="1.5" y="1.5" width="9" height="9"/></svg></button>
+      <button class="x" data-act="win-close" aria-label="Cerrar"><svg class="i" viewBox="0 0 12 12"><path d="M1.5 1.5l9 9M10.5 1.5l-9 9"/></svg></button>
+    </div>
+  </header>
+  <div class="work">
+    <aside class="rail">
+      <button class="btn pri cta" data-act="new"><svg class="i"><use href="#i-search"/></svg><span class="lbl">Buscar recursos</span><kbd class="kbd">Ctrl N</kbd></button>
+      <nav id="nav" aria-label="Secciones"></nav>
+      <div class="railfoot"><i class="dot good" id="sysdot"></i><span id="sysline">Local · 127.0.0.1</span></div>
+    </aside>
+    <main class="main" id="main"><section class="view" id="view"></section></main>
+  </div>
+</div>
+<div class="veil" id="veil"></div>
+<div class="toasts" id="toasts" aria-live="polite"></div>
+<div class="tip hide" id="tip"></div>
+<div class="grip" id="grip"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17M12 7a5 5 0 010 10" /></symbol>
+  <symbol id="i-panel" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="9" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="5" rx="1.5"/><rect x="13.5" y="11.5" width="7" height="9" rx="1.5"/><rect x="3.5" y="15.5" width="7" height="5" rx="1.5"/></symbol>
+  <symbol id="i-runs" viewBox="0 0 24 24"><path d="M12 3l8.5 4.5L12 12 3.5 7.5z"/><path d="M3.5 12l8.5 4.5 8.5-4.5M3.5 16.5L12 21l8.5-4.5"/></symbol>
+  <symbol id="i-explore" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M15.5 8.5l-2 5-5 2 2-5z"/></symbol>
+  <symbol id="i-watch" viewBox="0 0 24 24"><circle cx="12" cy="13" r="7.5"/><path d="M12 9v4l2.5 2M9 3h6"/></symbol>
+  <symbol id="i-sources" viewBox="0 0 24 24"><ellipse cx="12" cy="6" rx="7.5" ry="2.8"/><path d="M4.5 6v6c0 1.5 3.4 2.8 7.5 2.8s7.5-1.300 7.500-2.800V6M4.5 12v6c0 1.500 3.400 2.800 7.500 2.800s7.500-1.300 7.500-2.800v-6"/></symbol>
+  <symbol id="i-activity" viewBox="0 0 24 24"><path d="M3 12h4l3-7 4 14 3-7h4"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.500 4.500L19 7.500"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 15.500H3z"/><path d="M12 10v4M12 17v.010"/></symbol>
+  <symbol id="i-error" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M9 9l6 6M15 9l-6 6"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5M12 8v.010"/></symbol>
+  <symbol id="i-loader" viewBox="0 0 24 24"><path d="M12 3.5a8.500 8.500 0 108.500 8.500"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 6v12M15 6v12"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.500v13l10-6.500z"/></symbol>
+  <symbol id="i-stop" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="1.500"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4.500 7h15M9.500 7V4.500h5V7M6.500 7l1 12.500h9l1-12.500"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3.500 6.500h6l2 2.500h9v10h-17z"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 4v11M7.500 11l4.500 4.500 4.500-4.500M5 19.500h14"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 4.500h5.500V10M19.500 4.500l-8 8M17.500 14v5.500h-13v-13H10"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M6.500 3.500h7l4 4v13h-11z"/><path d="M13.500 3.500v4h4"/></symbol>
+  <symbol id="i-page" viewBox="0 0 24 24"><rect x="4.500" y="4.500" width="15" height="15" rx="2"/><path d="M8 9h8M8 12.500h8M8 16h5"/></symbol>
+  <symbol id="i-hit" viewBox="0 0 24 24"><path d="M10 14a4 4 0 005.700 0l3-3a4 4 0 00-5.700-5.700l-1 1M14 10a4 4 0 00-5.700 0l-3 3a4 4 0 005.700 5.700l1-1"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M12 7.500V12l3 2"/></symbol>
+  <symbol id="i-depth" viewBox="0 0 24 24"><path d="M5 5h14M8 10h8M10.500 15h3M12 15v4.500"/></symbol>
+  <symbol id="i-net" viewBox="0 0 24 24"><path d="M7 4v14M4 15l3 3 3-3M17 20V6M14 9l3-3 3 3"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4.500 19.500l1-4L16 5l3 3L8.500 18.500z"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M19.500 12a7.500 7.500 0 11-2.200-5.300M19.500 4.500v4h-4"/></symbol>
+  <symbol id="i-chev" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.500" y="8.500" width="11" height="11" rx="2"/><path d="M15.500 8.500v-4h-11v11h4"/></symbol>
+  <symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18.500a4 4 0 01-.500-8 5.500 5.500 0 0110.700-1 4.500 4.500 0 01.300 9z"/></symbol>
+  <symbol id="i-graph" viewBox="0 0 24 24"><circle cx="6" cy="7" r="2.5"/><circle cx="18" cy="6" r="2"/><circle cx="12" cy="17.5" r="3"/><path d="M8.3 8.2l7.800-1.600M7.200 9.200l3.300 5.800M17 7.800l-3.400 7.200"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.500"/><path d="M3.500 12h17M12 3.500c3 3 3 14 0 17M12 3.500c-3 3-3 14 0 17"/></symbol>
+</defs></svg>
+<script src="/static/app.js"></script>
+<script src="/static/map.js"></script>
+</body>
+</html>

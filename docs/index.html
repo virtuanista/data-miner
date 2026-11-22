@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DataMiner · una araña por criterio de búsqueda</title>
+<meta name="description" content="DataMiner busca un término en 20 fuentes a la vez, se queda con lo reciente, extrae el contenido limpio en Markdown y descarga los ficheros enlazados.">
+<link rel="icon" href="favicon.ico">
+<style>
+:root{--bg:#0c0e11;--panel:#13161a;--line:#23282f;--text:#e6e9ee;--muted:#9aa3ae;--accent:#2fd4a7;--accent-ink:#06130f}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]){--bg:#f6f7f9;--panel:#fff;--line:#dfe3e8;--text:#14171c;--muted:#5b6470;--accent:#0f9d78;--accent-ink:#fff}}
+:root[data-theme="light"]{--bg:#f6f7f9;--panel:#fff;--line:#dfe3e8;--text:#14171c;--muted:#5b6470;--accent:#0f9d78;--accent-ink:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+a{color:var(--accent)}
+.wrap{max-width:960px;margin:0 auto;padding:0 16px}
+header{padding:20px 0;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;text-decoration:none;color:var(--text)}
+.brand img{width:28px;height:28px}
+nav{float:right;display:flex;gap:18px;font-size:14px;margin-top:4px}
+nav a{color:var(--muted);text-decoration:none}
+nav a:hover{color:var(--text)}
+.hero{padding:72px 0 56px}
+.hero h1{font-size:clamp(34px,6vw,56px);line-height:1.1;margin:0 0 16px;letter-spacing:-.02em}
+.hero p.lead{font-size:19px;color:var(--muted);max-width:680px;margin:0 0 28px}
+.cta{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-block;padding:12px 20px;border-radius:8px;text-decoration:none;font-weight:600;border:1px solid var(--line)}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.btn.ghost{color:var(--text);background:var(--panel)}
+.meta{font-size:13px;color:var(--muted);margin-top:14px}
+section{padding:48px 0;border-top:1px solid var(--line)}
+h2{font-size:26px;margin:0 0 14px;letter-spacing:-.01em}
+h3{font-size:17px;margin:0 0 6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px}
+.card p{margin:0;color:var(--muted);font-size:15px}
+.steps{counter-reset:s;list-style:none;padding:0;margin:0}
+.steps li{counter-increment:s;padding:14px 0 14px 48px;position:relative;border-bottom:1px solid var(--line)}
+.steps li:before{content:counter(s);position:absolute;left:0;top:12px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-weight:700}
+code,pre{font-family:ui-monospace,Consolas,monospace;font-size:14px}
+code{background:var(--panel);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600}
+footer{padding:28px 0;color:var(--muted);font-size:14px;border-top:1px solid var(--line)}
+@media (max-width:640px){nav{display:none}.hero{padding:48px 0 40px}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <nav>
+      <a href="#funciones">Funciones</a>
+      <a href="#fuentes">Fuentes</a>
+      <a href="#descargar">Descargar</a>
+      <a href="https://github.com/virtuanista/DataMiner">GitHub</a>
+    </nav>
+    <a class="brand" href="#"><img src="mark.svg" alt="">DataMiner</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <h1>Una araña por cada criterio de búsqueda.</h1>
+    <p class="lead">Escribes un término y DataMiner lo busca a la vez en 20 fuentes: buscadores, prensa mundial, redes, foros, código, ciencia y archivos. Se queda solo con lo reciente, extrae el contenido limpio de cada página y descarga los ficheros enlazados (PDF, CSV, XLSX…). Todo queda en tu equipo.</p>
+    <div class="cta">
+      <a class="btn primary" href="https://github.com/virtuanista/DataMiner/releases/latest">Descargar para Windows</a>
+      <a class="btn ghost" href="https://github.com/virtuanista/DataMiner">Ver el código</a>
+    </div>
+    <p class="meta">Versión 2.0.0 · Windows 10/11 · Sin instalación, sin cuenta, sin nube.</p>
+  </div>
+
+  <section id="funciones">
+    <div class="wrap">
+      <h2>Qué hace</h2>
+      <div class="grid">
+        <div class="card"><h3>Busca en paralelo</h3><p>Lanza el término a la vez en buscadores, noticias, redes, repositorios y catálogos abiertos, con variantes y operadores (<code>filetype:</code>, <code>intitle:</code>, <code>site:</code>).</p></div>
+        <div class="card"><h3>Solo lo reciente</h3><p>Por defecto, los últimos 7 días. Se aplica en origen y otra vez sobre la fecha extraída. Lo que no trae fecha se marca como tal.</p></div>
+        <div class="card"><h3>Texto limpio en Markdown</h3><p>Cada página se guarda con su autor, fecha, sitio y enlaces, lista para leer o procesar.</p></div>
+        <div class="card"><h3>Ficheros enlazados</h3><p>Descarga PDF, CSV, XLSX, ZIP y más, con su SHA-256. Los PDF también se convierten a texto.</p></div>
+        <div class="card"><h3>Mapa de hallazgos</h3><p>Agrupa lo encontrado por tema, dominio o fuente y lo dibuja en un mapa interactivo con tres niveles de zoom.</p></div>
+        <div class="card"><h3>Vigilancias</h3><p>Guarda búsquedas que se repiten solas mientras la app está abierta y te muestra únicamente lo nuevo.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="fuentes">
+    <div class="wrap">
+      <h2>Fuentes</h2>
+      <table>
+        <tr><th>Grupo</th><th>Fuentes</th></tr>
+        <tr><td>Web</td><td>Yahoo (índice de Bing), metabuscador ddgs</td></tr>
+        <tr><td>Noticias</td><td>Google News, Bing News, GDELT (prensa en 65 idiomas)</td></tr>
+        <tr><td>Social y foros</td><td>Hacker News, Mastodon, Bluesky, Stack Exchange, YouTube, dev.to</td></tr>
+        <tr><td>Código y modelos</td><td>GitHub, GitLab, Hugging Face, npm</td></tr>
+        <tr><td>Ciencia y conocimiento</td><td>Wikipedia, arXiv, OpenAlex, Crossref, Internet Archive</td></tr>
+        <tr><td>Datos abiertos</td><td>Zenodo, Figshare, OpenAIRE, data.europa.eu, data.gov.uk, Socrata</td></tr>
+        <tr><td>Libros y media</td><td>Project Gutenberg, Open Library, Wikimedia Commons, TVmaze</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="descargar">
+    <div class="wrap">
+      <h2>Descargar</h2>
+      <ol class="steps">
+        <li><strong>Descarga el zip</strong> desde <a href="https://github.com/virtuanista/DataMiner/releases/latest">Releases</a> (<code>DataMiner-2.0.0-windows.zip</code>).</li>
+        <li><strong>Descomprímelo</strong> en la carpeta que quieras.</li>
+        <li><strong>Abre <code>DataMiner.exe</code></strong>. No necesita Python ni instalación.</li>
+      </ol>
+      <p class="meta">Tus datos se guardan en <code>%USERPROFILE%\DataMiner\output\</code>.</p>
+      <h3 style="margin-top:28px">Desde el código</h3>
+      <pre>git clone https://github.com/virtuanista/DataMiner.git
+cd DataMiner
+python -m venv .venv
+.venv\Scripts\pip install -r requirements.txt
+DataMiner.bat</pre>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">DataMiner es una herramienta para uso personal y de investigación. Respeta los términos de cada fuente y <code>robots.txt</code>. Ver el <a href="https://github.com/virtuanista/DataMiner#readme">README</a> para más detalles.</div>
+</footer>
+</body>
+</html>
