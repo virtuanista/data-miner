@@ -127,3 +127,15 @@ Las fuentes de búsqueda laxa (Crossref, OpenAlex, npm, GitLab, issues de GitHub
 - Nombres de fichero seguros en Windows y UTF-8 en todas partes.
 
 Cuando una fuente bloquea el acceso (captcha o 403), DataMiner la marca como degradada y continúa. **No** intenta saltarse captchas ni protecciones.
+
+<p align="center">
+	Repositorio generado por <a href="https://github.com/virtuanista" target="_blank">virtu 🎣</a>
+</p>
+
+<p align="center">
+	<img src="https://open.soniditos.com/cat_footer.svg" alt="Gatito" />
+</p>
+
+<p align="center">
+	Copyright &copy; 2026
+</p>
