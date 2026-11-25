@@ -1,5 +1,7 @@
 # 🕷 DataMiner: una araña por criterio de búsqueda
 
+![Pantalla de búsqueda](docs/captura.webp)
+
 Le das un término y DataMiner lo busca a la vez en **20 fuentes** (buscadores web, prensa mundial, redes, foros, código, ciencia y archivos). Solo se queda con lo **reciente** (por defecto, los últimos 7 días). Después visita cada resultado, extrae el contenido limpio en Markdown, sigue los enlaces relevantes y descarga los ficheros enlazados (pdf, csv, xlsx…). Todo se guarda en `output/`.
 
 ## Descargar (Windows)
