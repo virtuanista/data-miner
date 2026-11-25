@@ -4,7 +4,7 @@
 
 ![Search screen](docs/captura.webp)
 
-Give it a term and DataMiner searches for it across **20 sources** at once (web search engines, world press, social networks, forums, code, science and archives). It keeps only what is **recent** (the last 7 days by default). It then visits each result, extracts the clean content as Markdown, follows the relevant links and downloads the linked files (pdf, csv, xlsx…). Everything is saved in `output/`.
+Give it a term and DataMiner searches for it across **up to 45 sources** at once, the ones that fit what you are after (web search engines, world press, social networks, forums, code, science and archives). It keeps only what is **recent** (the last 7 days by default). It then visits each result, extracts the clean content as Markdown, follows the relevant links and downloads the linked files (pdf, csv, xlsx…). Everything is saved in `output/`.
 
 ## Download (Windows)
 
@@ -96,7 +96,10 @@ dm sources                                                      # list of source
 | Social and forums | `hackernews` (stories and comments), `mastodon` (8 instances), `bluesky`, `stackexchange` (11 sites), `youtube`, `devto` |
 | Code, models and packages | `github` (repos and issues; uses `GITHUB_TOKEN` if present, to go 3 times faster), `gitlab`, `huggingface`, `npm` |
 | Knowledge and science | `wikipedia`, `arxiv`, `openalex`, `crossref`, `internet_archive` |
-| Books, video and audio (`media.py`) | `gutenberg`, `openlibrary`, `archive_books`, `archive_video`, `archive_audio`, `archive_software`, `commons_media`, `tvmaze` (series listings, no video) |
+| Full-text science | `hal`, `oai_pmh` (Zenodo and HAL), `europepmc`, `doaj` |
+| Open data | `openaire`, `socrata`, `zenodo`, `figshare`, `eu_open_data`, `uk_open_data`, `hf_dataset_files` |
+| Packages and files | `pypi`, `github_releases`, `code_archives`, `archive_files` |
+| Books, video and audio (`media.py`) | `gutenberg`, `openlibrary`, `archive_books`, `archive_video`, `archive_audio`, `archive_software`, `commons_media`, `librivox`, `nasa_media`, `tvmaze` (series listings, no video) |
 
 With `--since 100y` («Sin límite», "No limit", in the interface) the Internet Archive catalogs are sorted by popularity instead of upload date. Files above `--max-file-mb` are not downloaded: they remain as a direct link in the finding.
 
