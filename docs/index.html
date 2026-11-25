@@ -48,6 +48,7 @@ footer{padding:28px 0;color:var(--muted);font-size:14px;border-top:1px solid var
 </style>
 </head>
 <body>
+<div class="wrap" data-lang></div>
 <header>
   <div class="wrap">
     <nav>
@@ -112,7 +113,7 @@ footer{padding:28px 0;color:var(--muted);font-size:14px;border-top:1px solid var
       <p class="meta">Tus datos se guardan en <code>%USERPROFILE%\DataMiner\output\</code>.</p>
       <h3 style="margin-top:28px">Desde el código</h3>
       <pre>git clone https://github.com/virtuanista/data-miner.git
-cd DataMiner
+cd data-miner
 python -m venv .venv
 .venv\Scripts\pip install -r requirements.txt
 DataMiner.bat</pre>
@@ -123,5 +124,63 @@ DataMiner.bat</pre>
 <footer>
   <div class="wrap">DataMiner es una herramienta para uso personal y de investigación. Respeta los términos de cada fuente y <code>robots.txt</code>. Ver el <a href="https://github.com/virtuanista/data-miner#readme">README</a> para más detalles.</div>
 </footer>
+<script>
+// Español por defecto; ?lang=en muestra la página en inglés.
+const EN = {
+ "DataMiner · una araña por criterio de búsqueda": "DataMiner · one spider per search",
+ "Funciones": "Features",
+ "Fuentes": "Sources",
+ "Descargar": "Download",
+ "Una araña por cada criterio de búsqueda.": "One spider for each search.",
+ "Escribes un término y DataMiner lo busca a la vez en 20 fuentes: buscadores, prensa mundial, redes, foros, código, ciencia y archivos. Se queda solo con lo reciente, extrae el contenido limpio de cada página y descarga los ficheros enlazados (PDF, CSV, XLSX…). Todo queda en tu equipo.": "Type a term and DataMiner looks for it in 20 sources at once: search engines, world press, social networks, forums, code, science and archives. It keeps only what is recent, extracts the clean content of each page and downloads the linked files (PDF, CSV, XLSX…). Everything stays on your computer.",
+ "Descargar para Windows": "Download for Windows",
+ "Ver el código": "View the code",
+ "Versión 2.0.0 · Windows 10/11 · Sin instalación, sin cuenta, sin nube.": "Version 2.0.0 · Windows 10/11 · No installation, no account, no cloud. The app is in Spanish.",
+ "Qué hace": "What it does",
+ "Busca en paralelo": "Searches in parallel",
+ "Lanza el término a la vez en buscadores, noticias, redes, repositorios y catálogos abiertos, con variantes y operadores (": "Sends the term at once to search engines, news, social networks, repositories and open catalogues, with variants and operators (",
+ "Solo lo reciente": "Only what is recent",
+ "Por defecto, los últimos 7 días. Se aplica en origen y otra vez sobre la fecha extraída. Lo que no trae fecha se marca como tal.": "By default, the last 7 days. Applied at the source and again on the extracted date. Anything without a date is marked as such.",
+ "Texto limpio en Markdown": "Clean text in Markdown",
+ "Cada página se guarda con su autor, fecha, sitio y enlaces, lista para leer o procesar.": "Each page is saved with its author, date, site and links, ready to read or process.",
+ "Ficheros enlazados": "Linked files",
+ "Descarga PDF, CSV, XLSX, ZIP y más, con su SHA-256. Los PDF también se convierten a texto.": "Downloads PDF, CSV, XLSX, ZIP and more, with their SHA-256. PDFs are also converted to text.",
+ "Mapa de hallazgos": "Map of findings",
+ "Agrupa lo encontrado por tema, dominio o fuente y lo dibuja en un mapa interactivo con tres niveles de zoom.": "Groups what it finds by topic, domain or source and draws it on an interactive map with three zoom levels.",
+ "Vigilancias": "Watches",
+ "Guarda búsquedas que se repiten solas mientras la app está abierta y te muestra únicamente lo nuevo.": "Saves searches that repeat on their own while the app is open and shows you only what is new.",
+ "Grupo": "Group",
+ "Yahoo (índice de Bing), metabuscador ddgs": "Yahoo (Bing index), ddgs metasearch",
+ "Noticias": "News",
+ "Google News, Bing News, GDELT (prensa en 65 idiomas)": "Google News, Bing News, GDELT (press in 65 languages)",
+ "Social y foros": "Social and forums",
+ "Código y modelos": "Code and models",
+ "Ciencia y conocimiento": "Science and knowledge",
+ "Datos abiertos": "Open data",
+ "Libros y media": "Books and media",
+ "Descarga el zip": "Download the zip",
+ "desde": "from",
+ "Descomprímelo": "Unpack it",
+ "en la carpeta que quieras.": "in any folder.",
+ "Abre": "Open",
+ ". No necesita Python ni instalación.": ". It needs no Python and no installation.",
+ "Tus datos se guardan en": "Your data is saved in",
+ "Desde el código": "From source",
+ "DataMiner es una herramienta para uso personal y de investigación. Respeta los términos de cada fuente y": "DataMiner is a tool for personal and research use. It respects the terms of each source and",
+ ". Ver el": ". See the",
+ "para más detalles.": "for more details."
+};
+const LANG = new URLSearchParams(location.search).get('lang') === 'en' ? 'en' : 'es', tr = s => LANG === 'en' ? EN[s] ?? s : s;
+if (LANG === 'en') {
+  document.documentElement.lang = 'en'; document.title = tr(document.title);
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  for (let n; n = w.nextNode();) { const k = n.data.replace(/\s+/g, ' ').trim(); if (EN[k]) n.data = n.data.replace(/^(\s*)[\s\S]*?(\s*)$/, (_, a, b) => a + EN[k] + b); }
+  for (const el of document.querySelectorAll('[aria-label],[title],[alt],[placeholder]')) for (const a of ['aria-label', 'title', 'alt', 'placeholder']) if (EN[el.getAttribute(a)]) el.setAttribute(a, EN[el.getAttribute(a)]);
+}
+{ const b = document.createElement('p'); b.style.cssText = 'text-align:right;margin:0;padding-top:10px;font-size:14px';
+  b.innerHTML = LANG === 'en' ? '<a href="?lang=es" lang="es">Español</a> · <b>English</b>' : '<b>Español</b> · <a href="?lang=en" lang="en">English</a>';
+  b.querySelector('a').style.color = 'inherit'; (document.querySelector('[data-lang]') ?? document.body).append(b);
+  b.querySelector('a').addEventListener('click', e => { e.currentTarget.href = e.currentTarget.getAttribute('href').split('#')[0] + location.hash; }); }
+</script>
 </body>
 </html>

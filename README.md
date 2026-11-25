@@ -1,3 +1,5 @@
+<p align="center"><b>Español</b> · <a href="README.en.md">English</a></p>
+
 # 🕷 DataMiner: una araña por criterio de búsqueda
 
 ![Pantalla de búsqueda](docs/captura.webp)
